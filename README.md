@@ -43,7 +43,7 @@ I’m also passionate about technology, robotics, and innovative solutions.
 
 **LinkedIn:** [www.linkedin.com/in/aya-en-nomany-47b49b318/](https://www.linkedin.com/in/aya-en-nomany-47b49b318/)
 
-**Portfolio Website:** [https://ayaennomany.ct.ws/whadik](https://ayaennomany.ct.ws)
+**Portfolio Website:** [https://ayaennomany.ct.ws/whadik](https://ayaennomany.ct.ws/)
 
 <div align="center">
   
