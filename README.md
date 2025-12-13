@@ -23,7 +23,6 @@ I’m also passionate about technology, robotics, and innovative solutions.
 
 ## 🎯 Skills & Expertise
 - **Web Development**: React, TypeScript, Vite, Tailwind CSS, shadcn-ui  
-- **Mobile Development**: Native Android with Kotlin  
 - **Backend & Databases**: PHP (PDO), MySQL  
 - **Desktop Apps**: Electron, CustomTkinter (Python)  
 - **Other**: Arduino, IoT, automation prototypes  
