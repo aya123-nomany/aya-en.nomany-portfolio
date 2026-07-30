@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, MapPin } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Import all images
 import event1 from "@/assets/stand.jpg";
@@ -12,107 +13,56 @@ import certificat from "@/assets/certificat1.jpeg";
 import certificate from "@/assets/certificat2.jpeg";
 import certificats from "@/assets/certificat3.jpeg";
 
-const events = [
-  {
-    id: 1,
-    title: "Stand at CMC-RSK",
-    date: "October 2, 2025",
-    location: "Tamesna, CMC",
-    category: "Stand",
-    image: event1,
-    description: "Un carrefour où nous avons présenté nos projets robotiques, partagé nos expériences et mis en avant nos compétences en innovation et travail d’équipe, tout en étant inspirés par la visite officielle des responsables du secteur de la formation et de l’emploi.",
-  },
-  {
-    id: 2,
-    title: "Hackathon Circuit Jam – École Hassania des Travaux Publics",
-    date: "June 5, 2025",
-    location: "EHTP",
-    category: "Hackathon",
-    image: event2,
-    description: "J’ai participé au hackathon Circuit Jam à l’École Hassania des Travaux Publics et j’ai eu la chance de remporter la première place. Une expérience incroyable qui m’a permis de mettre en pratique mes compétences, de travailler en équipe et de relever des défis technologiques avec créativité et passion.",
-  },
-  {
-    id: 3,
-    title: "MRNC 25 Competition",
-    date: "May 25, 2024",
-    location: "ENSET Mohammedia",
-    category: "Competitions",
-    image: event3,
-    description: "Notre Club Robotics CMC a participé à une compétition de robotique organisée par l’ENSET Mohammedia, où notre club a remporté la première place. Cette expérience m’a permis de mettre en pratique mes compétences, de travailler en équipe et de développer ma créativité et mon esprit d’innovation dans un contexte compétitif et technologique.",
-  },
-  {
-    id: 4,
-    title: "Tech-Day 2.0",
-    date: "April 12, 2025",
-    location: "École Centrale-Casablanca",
-    category: "Competitions",
-    image: event4,
-    description: "J’ai participé à la 2e édition du Tech-Day à l’École Centrale Casablanca, sponsorisée par Cnexia, où j’ai encadré avec mon équipe la conception du robot Sam, un robot mobile contrôlable à distance via Bluetooth. Ce projet m’a permis de mettre en pratique mes compétences en électronique, programmation et travail d’équipe, tout en partageant notre passion pour la technologie.",
-  },
-  {
-    id: 5,
-    title: "Compétition Locale de Robotique",
-    date: "January 20, 2025",
-    location: "CMC, Tamesna",
-    category: "Competitions",
-    image: cmc,
-    description: "Je suis très fière d’annoncer que notre équipe a remporté la compétition locale de robotique! Grâce à beaucoup de travail, de créativité et de collaboration, nous avons relevé les défis et atteint cet accomplissement. Un grand merci au Club Robotique CMC Rabat Salé Kénitra pour cette opportunité et à tous ceux qui nous ont soutenus. Cette victoire reflète la force du travail d’équipe et de l’innovation, et nous aspirons désormais à briller au niveau national.",
-  },
-  {
-    id: 6,
-    title: "Formation Arduino",
-    date: "November 29, 2025",
-    location: "CMC, Tamesna",
-    category: "Formations",
-    image: formation,
-    description: "Ma première expérience en tant que formatrice a été très enrichissante. Lors de la séance 3 du club, j’ai expliqué la partie des capteurs Arduino. C’était motivant de partager mes connaissances et de voir les autres comprendre comment utiliser les capteurs efficacement.",
-  },
-  {
-    id: 7,
-    title: "Certificat Introduction HTML",
-    date: "May 5, 2025",
-    from: "Sololearn",
-    category: "Certificats",
-    image: certificat,
-    description: "J'ai obtenu ce certificat après ma formation HTML, attestant mes compétences acquises sur les bases du HTML.",
-    url: "https://www.sololearn.com/certificates/CC-BSXLLFOH",
-    skills: ["HTML5"] 
-  },
-  {
-  id: 8, 
-  title: "Certificat Cognitive Class",
-  date: "February 2025",
-  from: "IBM",
-  category: "Certificats",
-  image: certificate, 
-  description: "Certificat délivré par IBM via Cognitive Class, attestant mes compétences acquises.",
-  url: "https://courses.cognitiveclass.ai/certificates/c2f4feab58b14c4ea0f8af5427621b78  ", 
-  skills: ["python"] 
-},
-{
-  id: 9,
-  title: "Fundamentals of Digital Marketing",
-  date: "July 2024",
-  from: "Google",
-  category: "Certificats",
-  image: certificats,
-  description: "Certificat délivré par Google attestant mes compétences fondamentales en marketing digital.",
-  url: "https://skillshop.exceedlms.com/student/award/n7afykjcTYPbTdjQz8fAHpQA",
-  skills: ["Digital Marketing"]
-}
-
-
-];
-
 const EventGalleryComplete = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const { t } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<string>(t.gallery.categories.all);
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
 
-  const categories = ["All", ...Array.from(new Set(events.map(event => event.category)))];
+  useEffect(() => {
+    setSelectedCategory(t.gallery.categories.all);
+  }, [t.gallery.categories.all]);
 
-  const filteredEvents = selectedCategory === "All" 
+
+  const eventImages = [event1, event2, event3, event4, cmc, formation, certificat, certificate, certificats];
+
+  const events = t.gallery.events.map((evt, idx) => {
+    // Map additional fields not inside translated object schema
+    const urls = [
+      "", "", "", "", "", "",
+      "https://www.sololearn.com/certificates/CC-BSXLLFOH",
+      "https://courses.cognitiveclass.ai/certificates/c2f4feab58b14c4ea0f8af5427621b78",
+      "https://skillshop.exceedlms.com/student/award/n7afykjcTYPbTdjQz8fAHpQA"
+    ];
+    return {
+      ...evt,
+      image: eventImages[idx],
+      url: urls[idx]
+    };
+  });
+
+  // Map category values to keep filtering working correctly in standard languages
+  const getTranslatedCategoryKey = (category: string) => {
+    if (category === t.gallery.categories.all) return "all";
+    if (category === t.gallery.categories.stand) return "Stand";
+    if (category === t.gallery.categories.hackathon) return "Hackathon";
+    if (category === t.gallery.categories.competitions) return "Competitions";
+    if (category === t.gallery.categories.formations) return "Trainings";
+    if (category === t.gallery.categories.certificates) return "Certificates";
+    return category;
+  };
+
+  const categories = [
+    t.gallery.categories.all,
+    t.gallery.categories.stand,
+    t.gallery.categories.hackathon,
+    t.gallery.categories.competitions,
+    t.gallery.categories.formations,
+    t.gallery.categories.certificates
+  ];
+
+  const filteredEvents = selectedCategory === t.gallery.categories.all
     ? events 
-    : events.filter(event => event.category === selectedCategory);
+    : events.filter(event => event.category === getTranslatedCategoryKey(selectedCategory) || event.category === selectedCategory);
 
   return (
     <section className="min-h-screen py-20 px-4 bg-black">
@@ -120,18 +70,12 @@ const EventGalleryComplete = () => {
      
         <div className="text-center mb-16">
           <h1
-            className="text-5xl md:text-7xl font-bold mb-6"
-            style={{
-              background: "linear-gradient(135deg, #ec4899, #f472b6, #fbbf24)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text"
-            }}
+            className="text-5xl md:text-7xl font-bold mb-6 gradient-text"
           >
-            Event Gallery
+            {t.gallery.title}
           </h1>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            A curated collection of memorable moments from the events I've attended, each one a stepping stone in my professional journey.
+            {t.gallery.subtitle}
           </p>
         </div>
 
@@ -148,8 +92,8 @@ const EventGalleryComplete = () => {
               style={
                 selectedCategory === category
                   ? {
-                      background: "linear-gradient(135deg, #ec4899, #f472b6)",
-                      boxShadow: "0 0 40px rgba(236, 72, 153, 0.4)"
+                      background: "var(--gradient-primary)",
+                      boxShadow: "var(--shadow-glow)"
                     }
                   : {}
               }
@@ -169,12 +113,12 @@ const EventGalleryComplete = () => {
           ))}
         </div>
 
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredEvents.map(event => (
             <div
               key={event.id}
-              className="group overflow-hidden transition-all duration-500 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/50"
+              className="group overflow-hidden transition-all duration-500 cursor-pointer bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl hover:-translate-y-2 hover:shadow-2xl"
+              style={{ ['--tw-shadow-color' as string]: 'hsl(var(--primary) / 0.5)' }}
               onMouseEnter={() => setHoveredEvent(event.id)}
               onMouseLeave={() => setHoveredEvent(null)}
             >
@@ -186,36 +130,36 @@ const EventGalleryComplete = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold bg-pink-500/90 text-white">
-                  {event.category}
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold text-white" style={{ background: 'var(--gradient-primary)' }}>
+                  {categories.find(cat => getTranslatedCategoryKey(cat) === event.category) || event.category}
                 </div>
 
                 <div
-                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-pink-500/90"
-                  style={{ opacity: hoveredEvent === event.id ? 1 : 0 }}
+                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
+                  style={{ opacity: hoveredEvent === event.id ? 1 : 0, background: 'hsl(var(--primary) / 0.9)' }}
                 >
                   <p className="text-white text-center px-6 font-medium">{event.description}</p>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-200 mb-3 group-hover:text-pink-300 transition-colors">
+                <h3 className="text-xl font-bold text-gray-200 mb-3 group-hover:text-primary transition-colors" style={{ ['--tw-text-opacity' as string]: '1' }}>
                   {event.title}
                 </h3>
 
                 {event.from && (
                   <div className="text-sm text-gray-300 mb-2">
-                    From: <span className="font-medium">{event.from}</span>
+                    {t.gallery.fromLabel} : <span className="font-medium">{event.from}</span>
                   </div>
                 )}
 
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-pink-400" />
+                    <Calendar className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                     <span className="text-sm text-gray-300">{event.date}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-pink-400" />
+                    <MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                     <span className="text-sm text-gray-300">{event.location}</span>
                   </div>
                 </div>
@@ -225,9 +169,10 @@ const EventGalleryComplete = () => {
                     href={event.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-block px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+                    className="mt-3 inline-block px-4 py-2 text-white rounded-lg transition-all duration-300 animate-fadeInUp hover:opacity-90 hover:scale-105"
+                    style={{ background: 'var(--gradient-primary)' }}
                   >
-                    Voir le certificat
+                    {t.gallery.viewCert}
                   </a>
                 )}
               </div>
@@ -237,24 +182,24 @@ const EventGalleryComplete = () => {
 
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-pink-300 bg-clip-text text-transparent">
+            <div className="text-4xl font-bold mb-2 gradient-text">
               {events.length}
             </div>
-            <div className="text-base text-gray-200">Events Attended</div>
+            <div className="text-base text-gray-200">{t.gallery.statEvents}</div>
           </div>
 
           <div className="text-center">
-            <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-pink-300 bg-clip-text text-transparent">
+            <div className="text-4xl font-bold mb-2 gradient-text">
               {categories.length - 1}
             </div>
-            <div className="text-base text-gray-200">Event Categories</div>
+            <div className="text-base text-gray-200">{t.gallery.statCategories}</div>
           </div>
 
           <div className="text-center">
-            <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-pink-300 bg-clip-text text-transparent">
+            <div className="text-4xl font-bold mb-2 gradient-text">
               6+
             </div>
-            <div className="text-base text-gray-200">Projects Showcased</div>
+            <div className="text-base text-gray-200">{t.gallery.statProjects}</div>
           </div>
         </div>
       </div>
