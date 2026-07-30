@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,8 +5,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Loader2 } from "lucide-react";
 import emailjs from 'emailjs-com';
 import { Toaster, toast } from 'react-hot-toast';
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const ContactSection = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,13 +30,13 @@ const ContactSection = () => {
     e.preventDefault();
     
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast.error("Please fill all required fields");
+      toast.error(t.contact.toastFillRequired);
       return;
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address");
+      toast.error(t.contact.toastValidEmail);
       return;
     }
     
@@ -47,7 +47,7 @@ const ContactSection = () => {
         from_name: formData.name,
         from_email: formData.email,
         to_name: "Aya",
-        subject: formData.subject || "No Subject",
+        subject: formData.subject || t.contact.subjectPlaceholder,
         message: formData.message,
         reply_to: formData.email,
         date: new Date().toLocaleDateString(),
@@ -62,7 +62,7 @@ const ContactSection = () => {
       );
 
       if (response.status === 200) {
-        toast.success('Message sent successfully! I will get back to you soon.', {
+        toast.success(t.contact.toastSuccess, {
           duration: 5000,
           style: {
             background: '#10b981',
@@ -80,7 +80,7 @@ const ContactSection = () => {
     } catch (error) {
       console.error('Error sending email:', error);
       
-      let errorMessage = 'Failed to send message. Please try again later.';
+      let errorMessage = t.contact.toastError;
       
       if (error instanceof Error) {
         errorMessage = `Error: ${error.message}`;
@@ -101,20 +101,20 @@ const ContactSection = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6" />,
-      title: "Email",
+      title: t.contact.emailLabel,
       value: "ayaennoamany@gmail.com",
       link: "mailto:ayaennoamany@gmail.com"
     },
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
+      title: t.contact.phoneLabel,
       value: "+212 66666666",
       link: "tel:+21266666666"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      value: "Available Worldwide",
+      title: t.contact.locationLabel,
+      value: t.contact.locationValue,
       link: "#"
     }
   ];
@@ -151,27 +151,25 @@ const ContactSection = () => {
       <div className="container-custom relative z-10">
         <div className="text-center mb-16 animate-fadeInUp">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Get In <span className="gradient-text">Touch</span>
+            {t.contact.title} <span className="gradient-text">{t.contact.titleHighlight}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to bring your ideas to life? Let's collaborate and create something amazing together. 
-            I'm always excited to work on new projects and challenges.
+            {t.contact.subtitle}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           <div className="space-y-8 animate-slideInLeft">
             <div>
-              <h3 className="text-2xl font-bold mb-6 gradient-text">Let's Start a Conversation</h3>
+              <h3 className="text-2xl font-bold mb-6 gradient-text">{t.contact.conversationTitle}</h3>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                Whether you have a project in mind, need consultation, or just want to say hello, 
-                I'd love to hear from you. Let's discuss how we can work together to achieve your goals.
+                {t.contact.conversationDesc}
               </p>
             </div>
 
             <div className="space-y-6">
               {contactInfo.map((info, index) => (
-                <div key={index} className="flex items-center space-x-4 group">
+                <div key={index} className="flex items-center space-x-4 rtl:space-x-reverse group">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
                     {info.icon}
                   </div>
@@ -191,8 +189,8 @@ const ContactSection = () => {
             </div>
 
             <div className="pt-8">
-              <h4 className="font-semibold text-foreground mb-4">Follow Me</h4>
-              <div className="flex space-x-4">
+              <h4 className="font-semibold text-foreground mb-4">{t.contact.followMe}</h4>
+              <div className="flex space-x-4 rtl:space-x-reverse">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
@@ -208,37 +206,37 @@ const ContactSection = () => {
             </div>
 
             <div className="glass-card rounded-2xl p-6 hover-glow">
-              <h4 className="font-bold text-foreground mb-2">Ready to Start?</h4>
+              <h4 className="font-bold text-foreground mb-2">{t.contact.readyTitle}</h4>
               <p className="text-muted-foreground text-sm mb-4">
-                Let's schedule a free consultation to discuss your project requirements.
+                {t.contact.readyDesc}
               </p>
               <Button 
                 variant="hero" 
                 size="sm" 
                 className="w-full"
-                onClick={() => toast("This feature is coming soon! 🚀")}
+                onClick={() => toast(t.contact.toastComingSoon)}
               >
-                Schedule a Call
+                {t.contact.scheduleCall}
               </Button>
             </div>
           </div>
 
           <div className="animate-fadeInUp">
             <div className="glass-card rounded-2xl p-8 hover-glow">
-              <h3 className="text-2xl font-bold mb-6 text-foreground">Send a Message</h3>
+              <h3 className="text-2xl font-bold mb-6 text-foreground">{t.contact.sendMessageTitle}</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Your Name
+                      {t.contact.nameLabel}
                     </label>
                     <Input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Enter your name"
+                      placeholder={t.contact.namePlaceholder}
                       className="glass-card border-0 focus:ring-2 focus:ring-primary"
                       required
                       disabled={isSubmitting}
@@ -246,14 +244,14 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Email Address
+                      {t.contact.emailFieldLabel}
                     </label>
                     <Input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="Enter your email"
+                      placeholder={t.contact.emailPlaceholder}
                       className="glass-card border-0 focus:ring-2 focus:ring-primary"
                       required
                       disabled={isSubmitting}
@@ -263,14 +261,14 @@ const ContactSection = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Subject
+                    {t.contact.subjectLabel}
                   </label>
                   <Input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    placeholder="What's this about?"
+                    placeholder={t.contact.subjectPlaceholder}
                     className="glass-card border-0 focus:ring-2 focus:ring-primary"
                     disabled={isSubmitting}
                   />
@@ -278,13 +276,13 @@ const ContactSection = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Message
+                    {t.contact.messageLabel}
                   </label>
                   <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Tell me about your project..."
+                    placeholder={t.contact.messagePlaceholder}
                     rows={6}
                     className="glass-card border-0 focus:ring-2 focus:ring-primary resize-none"
                     required
@@ -302,12 +300,12 @@ const ContactSection = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Sending...
+                      {t.contact.sending}
                     </>
                   ) : (
                     <>
-                      Send Message
-                      <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      {t.contact.sendBtn}
+                      <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-300" />
                     </>
                   )}
                 </Button>

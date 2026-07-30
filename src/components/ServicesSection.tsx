@@ -1,44 +1,46 @@
 import { Button } from "@/components/ui/button";
 import { Code, Smartphone, Palette, Bot, Globe, Zap, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const ServicesSection = () => {
+  const { t } = useLanguage();
+
   const services = [
     {
       icon: <Code className="w-8 h-8" />,
-      title: "Web Development",
-      description: "Custom websites and web applications built with modern technologies and best practices.",
-      features: ["Responsive Design", "Performance Optimization", "SEO-Friendly", "Modern Frameworks"],
+      title: t.services.webDev.title,
+      description: t.services.webDev.desc,
+      features: t.services.webDev.features,
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: <Palette className="w-8 h-8" />,
-      title: "UI/UX Design",
-      description: "Beautiful and intuitive user interfaces that provide exceptional user experiences.",
-      features: ["User Research", "Wireframing", "Prototyping", "Visual Design"],
+      title: t.services.uiUx.title,
+      description: t.services.uiUx.desc,
+      features: t.services.uiUx.features,
       color: "from-purple-500 to-pink-500"
     },
     {
       icon: <Bot className="w-8 h-8" />,
-      title: "Robotics Projects",
-      description: "Innovative robotics solutions and automation systems for various applications.",
-      features: ["Automation", "AI Integration", "Custom Hardware", "IoT Solutions"],
+      title: t.services.robotics.title,
+      description: t.services.robotics.desc,
+      features: t.services.robotics.features,
       color: "from-orange-500 to-red-500"
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      title: "Full-Stack Solutions",
-      description: "End-to-end development services from concept to deployment and maintenance.",
-      features: ["Database Design", "API Development", "Cloud Deployment", "Maintenance"],
+      title: t.services.fullStack.title,
+      description: t.services.fullStack.desc,
+      features: t.services.fullStack.features,
       color: "from-indigo-500 to-purple-500"
     },
     {
-  icon: <Zap className="w-8 h-8" />,
-  title: "Digital Solutions",
-  description: "Professional digital services designed to help individuals and businesses improve their online presence.",
-  features: ["Web Development", "UI/UX Optimization", "SEO Support", "Technical Assistance"],
-  color: "from-teal-500 to-blue-500"
-}
-
+      icon: <Zap className="w-8 h-8" />,
+      title: t.services.digital.title,
+      description: t.services.digital.desc,
+      features: t.services.digital.features,
+      color: "from-teal-500 to-blue-500"
+    }
   ];
 
   return (
@@ -50,11 +52,10 @@ const ServicesSection = () => {
       <div className="container-custom relative z-10">
         <div className="text-center mb-16 animate-fadeInUp">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            My <span className="gradient-text">Services</span>
+            {t.services.title} <span className="gradient-text">{t.services.titleHighlight}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive digital solutions tailored to bring your vision to life 
-            with creativity, innovation, and technical excellence.
+            {t.services.subtitle}
           </p>
         </div>
 
@@ -101,23 +102,22 @@ const ServicesSection = () => {
 
         {/* Call to Action Section */}
         <div className="text-center mt-16 glass-card rounded-2xl p-12 animate-fadeInUp">
-          <h3 className="text-2xl font-bold mb-4 gradient-text">Ready to Start Your Project?</h3>
+          <h3 className="text-2xl font-bold mb-4 gradient-text">{t.services.ctaTitle}</h3>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Let's collaborate to bring your ideas to life with innovative solutions 
-            that make a real impact. I'm here to help you every step of the way.
+            {t.services.ctaDesc}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
 
             <a href="https://www.linkedin.com/in/aya-en-nomany-47b49b318/">
               <Button variant="hero" size="lg">
-                Get Started Today
-                <ArrowRight className="w-5 h-5" />
+                {t.services.ctaBtnStart}
+                <ArrowRight className="w-5 h-5 mx-1 rtl:rotate-180" />
               </Button>
             </a>
 
             <a href="https://ayaennomany.ct.ws/" target="_blank" rel="noopener noreferrer">
               <Button variant="glass" size="lg">
-                View Portfolio
+                {t.services.ctaBtnPortfolio}
               </Button>
             </a>
 

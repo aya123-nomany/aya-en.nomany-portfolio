@@ -11,24 +11,26 @@ import {
   Heart, 
   Zap 
 } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const SkillsSection = () => {
   const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const technicalSkills = [
-    { name: "Web Development", icon: <Globe className="w-8 h-8" />, level: 95, color: "from-blue-500 to-cyan-500" },
-{ name: "Content Creation", icon: <Smartphone className="w-8 h-8" />, level: 70, color: "from-green-500 to-emerald-500"},
-    { name: "UI/UX Design", icon: <Palette className="w-8 h-8" />, level: 60, color: "from-purple-500 to-pink-500" },
-    { name: "Robotics", icon: <Bot className="w-8 h-8" />, level: 85, color: "from-orange-500 to-red-500" },
-    { name: "Programming", icon: <Code2 className="w-8 h-8" />, level: 92, color: "from-indigo-500 to-purple-500" },
-    { name: "Database ", icon: <Database className="w-8 h-8" />, level: 87, color: "from-teal-500 to-blue-500" }
+    { name: t.skills.technical.webDev, icon: <Globe className="w-8 h-8" />, level: 95, color: "from-blue-500 to-cyan-500" },
+    { name: t.skills.technical.contentCreation, icon: <Smartphone className="w-8 h-8" />, level: 70, color: "from-green-500 to-emerald-500"},
+    { name: t.skills.technical.uiUx, icon: <Palette className="w-8 h-8" />, level: 60, color: "from-purple-500 to-pink-500" },
+    { name: t.skills.technical.robotics, icon: <Bot className="w-8 h-8" />, level: 85, color: "from-orange-500 to-red-500" },
+    { name: t.skills.technical.programming, icon: <Code2 className="w-8 h-8" />, level: 92, color: "from-indigo-500 to-purple-500" },
+    { name: t.skills.technical.databases, icon: <Database className="w-8 h-8" />, level: 87, color: "from-teal-500 to-blue-500" }
   ];
 
   const softSkills = [
-    { name: "Leadership", icon: <Users className="w-6 h-6" />, description: "Leading teams and driving innovation" },
-    { name: "Problem Solving", icon: <Target className="w-6 h-6" />, description: "Creative solutions to complex challenges" },
-    { name: "Adaptability", icon: <Zap className="w-6 h-6" />, description: "Quick to learn and adapt to new technologies" },
-    { name: "Passion", icon: <Heart className="w-6 h-6" />, description: "Genuine love for technology and creativity" }
+    { name: t.skills.soft.leadership.name, icon: <Users className="w-6 h-6" />, description: t.skills.soft.leadership.desc },
+    { name: t.skills.soft.problemSolving.name, icon: <Target className="w-6 h-6" />, description: t.skills.soft.problemSolving.desc },
+    { name: t.skills.soft.adaptability.name, icon: <Zap className="w-6 h-6" />, description: t.skills.soft.adaptability.desc },
+    { name: t.skills.soft.passion.name, icon: <Heart className="w-6 h-6" />, description: t.skills.soft.passion.desc }
   ];
 
   return (
@@ -40,17 +42,16 @@ const SkillsSection = () => {
       <div className="container-custom relative z-10">
         <div className="text-center mb-16 animate-fadeInUp">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            My <span className="gradient-text">Skills</span> & Expertise
+            {t.skills.title} <span className="gradient-text">{t.skills.titleHighlight}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A comprehensive blend of technical proficiency and creative vision, 
-            powered by passion for innovation and continuous learning.
+            {t.skills.subtitle}
           </p>
         </div>
 
         {/* Technical Skills */}
         <div className="mb-20">
-          <h3 className="text-2xl font-bold text-center mb-12 gradient-text">Technical Expertise</h3>
+          <h3 className="text-2xl font-bold text-center mb-12 gradient-text">{t.skills.techTitle}</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {technicalSkills.map((skill, index) => (
               <div
@@ -78,7 +79,7 @@ const SkillsSection = () => {
                   {/* Skill Level Progress */}
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Proficiency</span>
+                      <span className="text-muted-foreground">{t.skills.proficiency}</span>
                       <span className="text-primary font-semibold">{skill.level}%</span>
                     </div>
                     <div className="h-3 bg-muted rounded-full overflow-hidden">
@@ -100,9 +101,10 @@ const SkillsSection = () => {
         </div>
 
         {/* Soft Skills */}
-        <div>
-          <h3 className="text-2xl font-bold text-center mb-12 gradient-text">Soft Skills</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="relative">
+          <h3 className="text-2xl font-bold text-center mb-12 gradient-text">{t.skills.softTitle}</h3>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {softSkills.map((skill, index) => (
               <div
                 key={index}
@@ -116,6 +118,44 @@ const SkillsSection = () => {
                 <p className="text-sm text-muted-foreground">{skill.description}</p>
               </div>
             ))}
+          </div>
+
+          {/* Infinite Marquee for more soft skills */}
+          <style>
+            {`
+              @keyframes marquee {
+                0% { transform: translateX(0%); }
+                100% { transform: translateX(-50%); }
+              }
+              .animate-marquee {
+                display: flex;
+                width: max-content;
+                animation: marquee 30s linear infinite;
+              }
+              .animate-marquee:hover {
+                animation-play-state: paused;
+              }
+            `}
+          </style>
+          
+          <div 
+            className="overflow-hidden py-4 w-full relative" 
+            style={{ 
+              maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+            }}
+          >
+            <div className="animate-marquee flex gap-4 pl-4">
+              {[...t.skills.softList, ...t.skills.softList].map((skill, index) => (
+                <div 
+                  key={index} 
+                  className="glass-card px-6 py-3 rounded-full flex items-center gap-3 hover-glow cursor-pointer transition-all hover:scale-105 group whitespace-nowrap border border-white/5 bg-white/5"
+                >
+                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+                  <span className="text-sm font-medium text-foreground tracking-wide">{skill}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

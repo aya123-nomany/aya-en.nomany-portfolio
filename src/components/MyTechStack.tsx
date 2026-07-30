@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Tech {
   name: string;
@@ -8,24 +9,37 @@ interface Tech {
 }
 
 const MyTechStack: React.FC = () => {
+  const { t } = useLanguage();
   const [activeTech, setActiveTech] = useState<string | null>(null);
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const [ripplePosition, setRipplePosition] = useState<{ x: number; y: number } | null>(null);
 
-  const techs: Tech[] = [
-    { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", description: "JavaScript library for building user interfaces", color: "hsl(320, 65%, 55%)" },
-    { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", description: "The programming language of the web", color: "hsl(320, 65%, 55%)" },
-    { name: "HTML5", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", description: "Markup language for creating web pages", color: "hsl(320, 65%, 55%)" },
-    { name: "CSS3", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", description: "Style sheet language for web presentation", color: "hsl(320, 65%, 55%)" },
-    { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", description: "Powerful programming language for AI and web", color: "hsl(280, 70%, 60%)" },
-    { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", description: "Distributed version control system", color: "hsl(320, 65%, 55%)" },
-    { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", description: "Platform for collaboration and code hosting", color: "hsl(320, 65%, 55%)" },
-    { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", description: "CSS framework for responsive designs", color: "hsl(280, 70%, 60%)" },
-    { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", description: "Collaborative interface design tool", color: "hsl(320, 65%, 55%)" },
-    { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", description: "Most popular relational database system", color: "hsl(320, 65%, 55%)" },
-    { name: "Tailwind CSS", logo: "https://w7.pngwing.com/pngs/293/485/png-transparent-tailwind-css-hd-logo.png", description: "Utility-first CSS framework", color: "hsl(280, 70%, 60%)" },
-    { name: "XML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xml/xml-original.svg", description: "Markup language for data storage and transport", color: "hsl(320, 65%, 55%)" },
+  const logos = [
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    "https://w7.pngwing.com/pngs/293/485/png-transparent-tailwind-css-hd-logo.png",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xml/xml-original.svg"
   ];
+  const colors = [
+    "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)",
+    "hsl(280, 70%, 60%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(280, 70%, 60%)",
+    "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(280, 70%, 60%)", "hsl(320, 65%, 55%)"
+  ];
+
+  const techs: Tech[] = t.techStack.techs.map((tech, idx) => ({
+    name: tech.name,
+    logo: logos[idx],
+    description: tech.desc,
+    color: colors[idx]
+  }));
 
   const handleMouseEnter = (techName: string, event: React.MouseEvent) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -71,13 +85,13 @@ const MyTechStack: React.FC = () => {
   <div className="relative inline-block">
     <h1 className="text-6xl font-bold mb-6 relative">
       <span className="gradient-text animate-gradient">
-        My Tech Stack
+        {t.techStack.title}
       </span>
     </h1>
     <div className="h-1 w-full bg-gradient-to-r from-transparent via-pink-400 to-transparent"></div>
   </div>
   <p className="text-muted-foreground text-xl mt-6 animate-fadeInUp">
-    Technologies, tools & frameworks I work with
+    {t.techStack.subtitle}
   </p>
 </div>
 
@@ -95,7 +109,7 @@ const MyTechStack: React.FC = () => {
               <div className={`transform transition-all duration-700 ease-out cursor-pointer ${isHovered ? "rotate-y-20 scale-110" : ""} ${isActive ? "animate-breathe" : ""}`}>
                 <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-accent to-primary blur opacity-0 group-hover:opacity-70 transition-opacity duration-500 ${isHovered ? "animate-glow" : ""}`}></div>
 
-                <div className={`relative glass-card border rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover-glow ${isHovered ? "shadow-primary/30" : ""} ${isActive ? "border-2 border-primary shadow-lg shadow-primary/30" : ""}`}>
+                <div className={`relative glass-card border rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover-glow ${isHovered ? "shadow-primary/30" : ""} ${isActive ? "border-2 border-primary shadow-lg shadow-primary/30 animate-pulse" : ""}`}>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className={`w-32 h-32 rounded-full absolute transition-all duration-1000 ${isHovered ? "scale-100 opacity-20" : "scale-0 opacity-0"}`} style={{ background: `radial-gradient(circle, ${techData?.color}40, transparent 70%)`, animation: isHovered ? "spin 10s linear infinite" : "none" }}></div>
                   </div>

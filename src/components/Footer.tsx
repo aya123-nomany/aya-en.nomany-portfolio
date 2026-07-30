@@ -1,7 +1,9 @@
 import { Heart, Code, Palette, Bot } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="relative overflow-hidden bg-gradient-to-r from-background to-secondary/20">
@@ -17,8 +19,7 @@ const Footer = () => {
             <div className="animate-fadeInUp">
               <h3 className="text-3xl font-bold gradient-text mb-4">Aya En.Nomany</h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Crafting digital experiences with passion, creativity, and innovation. 
-                Let's build the future together, one project at a time.
+                {t.footer.tagline}
               </p>
             </div>
 
@@ -38,12 +39,12 @@ const Footer = () => {
             {/* Copyright */}
             <div className="pt-8 border-t border-border/20 animate-fadeInUp">
               <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-                <span>© {currentYear} Made with</span>
+                <span>© {currentYear} {t.footer.copyright}</span>
                 <Heart className="w-4 h-4 text-primary animate-pulse" />
-                <span>by AYA EN.NOMANY</span>
+                <span>{t.footer.by}</span>
               </div>
               <p className="text-sm text-muted-foreground/60 mt-2">
-                Powered by creativity, innovation, and endless curiosity
+                {t.footer.curiosity}
               </p>
             </div>
           </div>

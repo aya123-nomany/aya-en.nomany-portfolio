@@ -1,44 +1,29 @@
 import { GraduationCap, Trophy, Heart, Target } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const AboutSection = () => {
+  const { t } = useLanguage();
+
   const highlights = [
     {
       icon: <GraduationCap className="w-6 h-6" />,
-      title: "Education",
-      description: "Développeuse Full Stack, formée en développement web et mobile avec un intérêt pour le design graphique."
+      title: t.about.educationTitle,
+      description: t.about.educationDesc
     },
     {
       icon: <Trophy className="w-6 h-6" />,
-      title: "Achievements",
-      description: "Participation et succès dans plusieurs compétitions de robotique, obtention de certifications et réalisation de projets innovants."
+      title: t.about.achievementsTitle,
+      description: t.about.achievementsDesc
     },
     {
       icon: <Heart className="w-6 h-6" />,
-      title: "Passion",
-      description: "Grande passion pour les technologies émergentes, l'IA et la création de solutions qui facilitent la vie quotidienne."
+      title: t.about.passionTitle,
+      description: t.about.passionDesc
     },
     {
       icon: <Target className="w-6 h-6" />,
-      title: "Focus",
-      description: "Objectif: devenir une entrepreneuse tech capable de créer des projets digitaux innovants et impactants."
-    }
-  ];
-
-  const timeline = [
-    {
-      year: "2025",
-      title: "Développeuse Full Stack",
-      description: "Dirige des projets web et mobiles innovants, en combinant expertise technique et créativité."
-    },
-    {
-      year: "2024-2025",
-      title: "Exploratrice en Robotique",
-      description: "Participation à des compétitions de robotique et intégration de solutions basées sur l'IA."
-    },
-    {
-      year: "2024",
-      title: "Baccalauréat et Entrée au CMC",
-      description: "Obtention du bac sciences physiques et admission à l'école CMC pour débuter la formation en développement numérique."
+      title: t.about.focusTitle,
+      description: t.about.focusDesc
     }
   ];
 
@@ -51,10 +36,10 @@ const AboutSection = () => {
       <div className="container-custom relative z-10">
         <div className="text-center mb-16 animate-fadeInUp">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            About <span className="gradient-text">Me</span>
+            {t.about.title} <span className="gradient-text">{t.about.titleHighlight}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Développeuse passionnée et motivée, combinant compétences techniques et vision créative pour développer des solutions digitales innovantes et impactantes.
+            {t.about.subtitle}
           </p>
         </div>
 
@@ -62,12 +47,10 @@ const AboutSection = () => {
           {/* Left Content */}
           <div className="space-y-8 animate-slideInLeft">
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-foreground">My Story</h3>
+              <h3 className="text-2xl font-bold text-foreground">{t.about.myStoryTitle}</h3>
               <div className="space-y-4 text-muted-foreground">
- <p>
- Hello! I'm Aya Full-Stack Developer with a strong passion for web development and robotics. I love building beautiful and functional web applications and exploring innovative solutions that combine programming with smart technologies. I enjoy learning new tools and turning complex ideas into simple, intuitive solutions.
-When I'm not coding or working on robotics projects, I enjoy exploring the latest tech trends, working on personal projects, and sharing knowledge with others, I am committed to continuous learning and improving my skills to create impactful digital and technological experiences
-</p>
+                <p>{t.about.p1}</p>
+                <p>{t.about.p2}</p>
               </div>
             </div>
 
@@ -91,17 +74,17 @@ When I'm not coding or working on robotics projects, I enjoy exploring the lates
 
           {/* Right Content - Timeline */}
           <div className="animate-fadeInUp">
-            <h3 className="text-2xl font-bold text-foreground mb-8">My Journey</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-8">{t.about.myJourneyTitle}</h3>
             <div className="space-y-6">
-              {timeline.map((item, index) => (
+              {t.about.timeline.map((item, index) => (
                 <div
                   key={index}
-                  className="relative flex items-start space-x-6 group"
+                  className="relative flex items-start space-x-6 rtl:space-x-reverse group"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Timeline Line */}
-                  {index !== timeline.length - 1 && (
-                    <div className="absolute left-6 top-12 w-0.5 h-16 bg-gradient-to-b from-primary to-transparent"></div>
+                  {index !== t.about.timeline.length - 1 && (
+                    <div className="absolute left-6 rtl:left-auto rtl:right-6 top-12 w-0.5 h-16 bg-gradient-to-b from-primary to-transparent"></div>
                   )}
                   
                   {/* Timeline Dot */}

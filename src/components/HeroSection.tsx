@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Code, Palette, Bot } from "lucide-react";
 import kawtarProfile from "@/assets/aya-profile.jpeg";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="min-h-screen relative overflow-hidden">
       {/* Background Elements */}
@@ -21,7 +24,7 @@ const HeroSection = () => {
             {/* Left Content */}
             <div className="space-y-8 animate-slideInLeft">
               {/* Floating Icons */}
-              <div className="flex space-x-4 mb-6">
+              <div className="flex space-x-4 rtl:space-x-reverse mb-6">
                 <div className="w-12 h-12 glass-card rounded-lg flex items-center justify-center animate-float">
                   <Code className="w-6 h-6 text-primary" />
                 </div>
@@ -34,48 +37,48 @@ const HeroSection = () => {
               </div>
 
               <div className="space-y-4">
-                <h2 className="text-lg text-primary font-medium">Hello, I'm</h2>
+                <h2 className="text-lg text-primary font-medium">{t.hero.greeting}</h2>
                 <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
                   <span className="gradient-text">Aya</span>
                   <br />
                   <span className="text-foreground">EN Nomany</span>
                 </h1>
                 <h3 className="text-2xl lg:text-3xl text-foreground/80 font-light">
-                  Tech Dreamer, Code Maker, Design Shaper
+                  {t.hero.role}
                 </h3>
               </div>
 
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
-                I'm | AYA EN NOMANY — the creative mind who blends web development, and robotics passion into powerful solutions. I lead with vision, design with originality, and build with unstoppable energy.
+                {t.hero.bio}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                <a href="https://www.linkedin.com/in/aya-en-nomany-47b49b318/">
               <Button variant="hero" size="lg" className="group">
-                Let’s start the magic
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                {t.hero.btnStart}
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
               </Button>
             </a>
 
                 <Button variant="glass" size="lg" className="group">
-                  <Play className="w-5 h-5" />
-                 Relax, your project is in safe and creative hands !
+                  <Play className="w-5 h-5 mx-1" />
+                 {t.hero.btnRelax}
                 </Button>
               </div>
 
               {/* Stats */}
-              <div className="flex space-x-8 pt-8">
+              <div className="flex space-x-8 rtl:space-x-reverse pt-8">
                 <div className="text-center">
                   <div className="text-3xl font-bold gradient-text">2</div>
-                  <div className="text-sm text-muted-foreground">Years Experience</div>
+                  <div className="text-sm text-muted-foreground">{t.hero.yearsExp}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold gradient-text">5+</div>
-                  <div className="text-sm text-muted-foreground">Projects Done</div>
+                  <div className="text-sm text-muted-foreground">{t.hero.projectsDone}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold gradient-text">100%</div>
-                  <div className="text-sm text-muted-foreground">Client Satisfaction</div>
+                  <div className="text-sm text-muted-foreground">{t.hero.clientSatisfaction}</div>
                 </div>
               </div>
             </div>
@@ -90,23 +93,22 @@ const HeroSection = () => {
                 <div className="relative glass-card rounded-3xl p-6 hover-glow">
                   <img
                     src={kawtarProfile}
-                    alt="AYA EN NOMANY - Developer"
+                    alt="AYA EN NOMANY"
                     className="w-full h-auto rounded-2xl object-cover"
                   />
                   
                   {/* Experience Badge */}
-                  <div className="absolute top-8 right-8 glass-card rounded-2xl p-4 animate-float">
+                  <div className="absolute top-8 right-8 rtl:right-auto rtl:left-8 glass-card rounded-2xl p-4 animate-float">
                     <div className="text-center">
                       <div className="text-2xl font-bold gradient-text">2</div>
-                      <div className="text-sm text-muted-foreground">Years</div>
-                      <div className="text-sm text-muted-foreground">Experience</div>
+                      <div className="text-sm text-muted-foreground">{t.hero.yearsExp}</div>
                     </div>
                   </div>
 
                   {/* Skills Indicator */}
-                  <div className="absolute bottom-8 left-8 glass-card rounded-2xl p-3 animate-float" style={{ animationDelay: '1s' }}>
-                    <div className="flex items-center space-x-2">
-                      <div className="flex -space-x-2">
+                  <div className="absolute bottom-8 left-8 rtl:left-auto rtl:right-8 glass-card rounded-2xl p-3 animate-float" style={{ animationDelay: '1s' }}>
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div className="flex -space-x-2 rtl:space-x-reverse">
                         <div className="w-8 h-8 bg-primary rounded-full border-2 border-background flex items-center justify-center">
                           <Code className="w-4 h-4 text-white" />
                         </div>
@@ -117,7 +119,7 @@ const HeroSection = () => {
                           <Bot className="w-4 h-4 text-white" />
                         </div>
                       </div>
-                      <span className="text-sm text-muted-foreground">Multi-skilled</span>
+                      <span className="text-sm text-muted-foreground">{t.hero.multiSkilled}</span>
                     </div>
                   </div>
                 </div>
