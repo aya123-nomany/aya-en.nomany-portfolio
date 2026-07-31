@@ -15,23 +15,86 @@ const MyTechStack: React.FC = () => {
   const [ripplePosition, setRipplePosition] = useState<{ x: number; y: number } | null>(null);
 
   const logos = [
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    // HTML5
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    // CSS3
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    // JavaScript
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    // PHP
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    // Python
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    // SQL
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqldeveloper/sqldeveloper-original.svg",
+    // React.js
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    // Next.js
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    // Laravel
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+    // Node.js
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    // Express.js
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    // Bootstrap
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    // Tailwind CSS
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    // MySQL
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-    "https://w7.pngwing.com/pngs/293/485/png-transparent-tailwind-css-hd-logo.png",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xml/xml-original.svg"
+    // SQLite
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+    // Docker
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    // Azure
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+    // Git
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    // GitHub
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    // Postman
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+    // Figma
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    // Arduino
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg",
+    // XAMPP
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+    // Composer
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg",
+    // npm
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+    // Vite
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
   ];
   const colors = [
-    "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)",
-    "hsl(280, 70%, 60%)", "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(280, 70%, 60%)",
-    "hsl(320, 65%, 55%)", "hsl(320, 65%, 55%)", "hsl(280, 70%, 60%)", "hsl(320, 65%, 55%)"
+    "hsl(20, 90%, 55%)",   // HTML5 orange
+    "hsl(210, 90%, 55%)",  // CSS3 blue
+    "hsl(50, 100%, 50%)",  // JS yellow
+    "hsl(230, 60%, 60%)",  // PHP indigo
+    "hsl(200, 80%, 50%)",  // Python blue
+    "hsl(320, 65%, 55%)",  // SQL pink
+    "hsl(195, 90%, 55%)",  // React cyan
+    "hsl(0, 0%, 80%)",     // Next.js white
+    "hsl(0, 75%, 55%)",    // Laravel red
+    "hsl(120, 60%, 40%)",  // Node green
+    "hsl(0, 0%, 70%)",     // Express grey
+    "hsl(260, 70%, 60%)",  // Bootstrap purple
+    "hsl(190, 90%, 50%)",  // Tailwind cyan
+    "hsl(200, 70%, 50%)",  // MySQL blue
+    "hsl(200, 60%, 60%)",  // SQLite light blue
+    "hsl(210, 90%, 55%)",  // Docker blue
+    "hsl(200, 80%, 55%)",  // Azure blue
+    "hsl(20, 90%, 55%)",   // Git orange
+    "hsl(320, 65%, 55%)",  // GitHub pink
+    "hsl(20, 80%, 55%)",   // Postman orange
+    "hsl(280, 70%, 60%)",  // Figma purple
+    "hsl(190, 80%, 45%)",  // Arduino teal
+    "hsl(20, 80%, 50%)",   // XAMPP orange
+    "hsl(20, 70%, 50%)",   // Composer orange
+    "hsl(0, 70%, 50%)",    // npm red
+    "hsl(280, 80%, 65%)",  // Vite purple
   ];
 
   const techs: Tech[] = t.techStack.techs.map((tech, idx) => ({
@@ -116,7 +179,7 @@ const MyTechStack: React.FC = () => {
 
                   <div className="relative z-10 flex flex-col items-center">
                     <div className={`mb-4 p-3 rounded-full bg-card border border-primary/50 transition-all duration-500 skill-icon-3d ${isHovered ? "scale-125 rotate-12" : ""} ${isActive ? "animate-pulse-slow" : ""}`}>
-                      <img src={tech.logo} alt={tech.name} className={`w-16 h-16 object-contain transition-all duration-700 ${isHovered ? "drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]" : ""} ${tech.name === "Tailwind CSS" ? "p-1 bg-white rounded-lg" : ""} ${tech.name === "GitHub" ? "p-2 bg-white rounded-lg" : ""}`} style={{ filter: isHovered ? `drop-shadow(0 0 15px ${techData?.color}80)` : "none" }} />
+                      <img src={tech.logo} alt={tech.name} className={`w-16 h-16 object-contain transition-all duration-700 ${isHovered ? "drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]" : ""} ${["Tailwind CSS", "GitHub", "Next.js", "Express.js", "XAMPP"].includes(tech.name) ? "p-1 bg-white rounded-lg" : ""}`} style={{ filter: isHovered ? `drop-shadow(0 0 15px ${techData?.color}80)` : "none" }} />
                     </div>
 
                     <span className={`text-xl font-bold transition-all duration-500 relative ${isHovered ? "text-primary scale-110" : "text-card-foreground"}`}>{tech.name}</span>
